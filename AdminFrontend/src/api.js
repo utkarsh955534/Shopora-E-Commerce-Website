@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://shopora-e-commerce-website.onrender.com",
+  baseURL: "https://shopora-e-commerce-website.onrender.com/api",
 });
 
 // token automatically attach
