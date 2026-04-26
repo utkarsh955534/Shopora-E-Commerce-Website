@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import { useCart } from "../store/cartStore";
+import { useCart } from "../store/cartstore";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import API from "../api";
