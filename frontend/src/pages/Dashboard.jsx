@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ShoppingCart, Heart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useCart } from "../store/cartStore";
+import { useCart } from "../store/cartstore";
 import { useWishlist } from "../store/wishlistStore";
 import { toast } from "react-toastify";
 import API from "../api";
