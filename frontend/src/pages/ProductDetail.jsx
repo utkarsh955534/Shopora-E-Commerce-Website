@@ -1,67 +1,25 @@
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import { useLocation } from "react-router-dom";
 import { useCart } from "../store/cartStore";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import API from "../api";
 
 export default function ProductDetail() {
   const { state } = useLocation();
-  const { id } = useParams();
-  const navigate = useNavigate();
   const { addToCart } = useCart();
+  const navigate = useNavigate();
 
-  const [product, setProduct] = useState(state || null);
-  const [loading, setLoading] = useState(!state);
-
-  // 🔄 Fetch product if not passed via state
-  useEffect(() => {
-    if (!product) {
-      const fetchProduct = async () => {
-        try {
-          const res = await API.get(`/products/${id}`);
-          setProduct(res.data);
-        } catch (err) {
-          console.log(err);
-          toast.error("Product load failed ❌");
-        } finally {
-          setLoading(false);
-        }
-      };
-
-      fetchProduct();
-    }
-  }, [id, product]);
-
-  // ⏳ Loading state
-  if (loading) {
-    return (
-      <div className="text-white text-center mt-20 text-xl">
-        Loading product...
-      </div>
-    );
-  }
-
-  // ❌ Safety fallback
-  if (!product) {
-    return (
-      <div className="text-white text-center mt-20 text-xl">
-        Product not found ❌
-      </div>
-    );
-  }
+  const product = state;
 
   return (
     <div className="min-h-screen bg-[#0f0f1a] text-white p-6">
+
       <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
 
-        {/* 🖼 Image */}
-        <img
-          src={product.image}
-          alt={product.name}
-          className="rounded-xl w-full"
-        />
+        {/* Image */}
+        <img src={product.image} className="rounded-xl w-full" />
 
-        {/* 📦 Details */}
+        {/* Details */}
         <div>
           <h1 className="text-3xl font-bold">{product.name}</h1>
           <p className="text-purple-400 text-xl mt-2">₹{product.price}</p>
@@ -70,12 +28,12 @@ export default function ProductDetail() {
             Premium quality product with fast delivery.
           </p>
 
-          {/* 🚚 Delivery */}
+          {/* Delivery */}
           <div className="mt-4 bg-white/10 p-3 rounded-lg">
             Deliver to: Moradabad, UP 🚚
           </div>
 
-          {/* 🔘 Buttons */}
+          {/* Buttons */}
           <div className="flex gap-4 mt-6">
 
             {/* 🛒 Add to Cart */}
@@ -83,7 +41,7 @@ export default function ProductDetail() {
               onClick={async () => {
                 try {
                   await API.post("/cart", {
-                    productId: product._id,
+                    productId: product._id, // ✅ FIX
                     quantity: 1,
                   });
 
@@ -98,7 +56,7 @@ export default function ProductDetail() {
               Add to Cart
             </button>
 
-            {/* ⚡ Buy Now */}
+            {/* Buy Now */}
             <button
               onClick={() => {
                 navigate("/checkout", { state: product });
