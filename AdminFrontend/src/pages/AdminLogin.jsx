@@ -15,8 +15,6 @@ export default function AdminLogin() {
         password,
       });
 
-      console.log(res.data);
-
       if (res.data.role !== "admin") {
         toast.error("Not an admin ❌");
         return;
@@ -29,8 +27,6 @@ export default function AdminLogin() {
       navigate("/admin/dashboard");
 
     } catch (err) {
-      console.log(err.response?.data);
-
       toast.error(
         err.response?.data?.message || "Login failed ❌"
       );
@@ -38,41 +34,40 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black text-white px-4">
-      
-      <div className="bg-gray-900 w-full max-w-sm sm:max-w-md md:max-w-lg p-6 sm:p-8 rounded-xl shadow-lg">
+    <div className="min-h-screen flex items-center justify-center bg-[#0f0f1a] text-white px-4">
+      <div className="w-full max-w-sm sm:max-w-md md:max-w-lg bg-white/5 backdrop-blur-lg p-6 sm:p-8 rounded-2xl border border-white/10 shadow-xl">
 
-        <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mb-4 text-center">
+        <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mb-5 text-center">
           Admin Login
         </h2>
 
         <input
+          type="email"
           placeholder="Email"
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full p-2.5 sm:p-3 mb-3 bg-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm sm:text-base"
+          className="w-full p-2.5 sm:p-3 mb-3 bg-white/10 rounded-md outline-none focus:ring-2 focus:ring-purple-500"
         />
 
         <input
           type="password"
           placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full p-2.5 sm:p-3 mb-4 bg-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm sm:text-base"
+          className="w-full p-2.5 sm:p-3 mb-4 bg-white/10 rounded-md outline-none focus:ring-2 focus:ring-purple-500"
         />
 
         <button
           onClick={login}
-          className="w-full bg-purple-600 hover:bg-purple-700 transition py-2.5 sm:py-3 rounded-md text-sm sm:text-base font-medium"
+          className="w-full bg-purple-600 hover:bg-purple-700 transition py-2.5 sm:py-3 rounded-md font-medium"
         >
           Login
         </button>
 
-        {/* 🔗 REGISTER REDIRECT */}
         <div className="mt-4 text-center text-sm text-gray-400">
           <p>
             I don’t have an account?
             <button
               onClick={() => navigate("/admin/register")}
-              className="ml-2 text-purple-400 hover:text-purple-300 underline transition"
+              className="ml-2 text-purple-400 underline"
             >
               Create Account
             </button>
